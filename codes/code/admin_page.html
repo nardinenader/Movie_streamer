@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title> admin page </title>
+    <link rel="stylesheet" href="admin_css.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home_page.html">Home</a></li>
+                <li><a href="admin_page.html">Admin</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+ 
+    <div class="admin-form-container">
+        <form id="addMovieForm" action="" method="post" enctype="multipart/form-data">
+            <h3>Add New Movie</h3>
+            <input type="text" placeholder="Enter movie name" name="movie_name" class="box" />
+            <input type="number" placeholder="Enter movie duration" name="movie_duration" class="box" />
+            <input type="text" placeholder="Enter movie genre" name="movie_genre" class="box" />
+            <input type="file" accept="image/png, image/jpeg, image/jpg" name="movie_img" class="box" />
+            <input type="submit" class="button" name="add_movie" value="Add Movie" />
+        </form>
+    </div>
+
+    <div class="movie-display">
+        <table class="movie-display-table" id="movieTable">
+            <thead>
+                <tr>
+                    <th>Movie Image</th>
+                    <th>Movie Name</th>
+                    <th>Movie Duration</th>
+                    <th>Movie Genre</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+   function addMovie() {
+      var movieName = document.getElementById("addMovieForm").elements.movie_name.value;
+      var movieDuration = document.getElementById("addMovieForm").elements.movie_duration.value;
+      var movieGenre = document.getElementById("addMovieForm").elements.movie_genre.value;
+      var movieImg = document.getElementById("addMovieForm").elements.movie_img.files[0];
+
+ 
+      var movieTable = document.getElementById("movieTable").getElementsByTagName('tbody')[0];
+      var newRow = movieTable.insertRow();
+
+     
+      var imageCell = newRow.insertCell();
+      var imageElement = document.createElement("img");
+      imageElement.src = URL.createObjectURL(movieImg);
+      imageElement.alt = "Movie Poster";
+      imageElement.height = "100";
+      imageCell.appendChild(imageElement);
+
+      var nameCell = newRow.insertCell();
+      nameCell.textContent = movieName;
+
+      var durationCell = newRow.insertCell();
+      durationCell.textContent = movieDuration;
+
+      
+      var genreCell = newRow.insertCell();
+      genreCell.textContent = movieGenre;
+   }
+
+   
+   var addMovieForm = document.getElementById("addMovieForm");
+   addMovieForm.addEventListener("submit", function (event) {
+      event.preventDefault(); 
+      addMovie(); 
+      addMovieForm.reset();
+   });
+    </script>
+</body>
+</html>
